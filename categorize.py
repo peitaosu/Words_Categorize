@@ -4,17 +4,17 @@ class Categorizer():
     def __init__(self):
         self.data = None
 
-    def preprocess(self):
+    def preprocess(self, func):
         # TODO - add preprocess implementation here
-        return self.data
+        self.data = func(self.data)
 
-    def postprocess(self):
+    def postprocess(self, func):
         # TODO - add postprocess implementation here
-        return self.data
+        self.data = func(self.data)
 
     def etyma_matching(self, level=3, language="en"):
         # TODO - add etyma matching implementation here
-        return self.data
+        pass
 
     def read_data(self, input_file_path):
         with open(input_file_path, "r") as input_file:
@@ -23,6 +23,12 @@ class Categorizer():
     def save_data(self, output_file_path):
         with open(output_file_path, "w") as output_file:
             output_file.write(self.data)
+
+def split_words(data):
+    return data.replace(';',' ').replace(',',' ').replace('\t',' ').replace('\n',' ').replace('\r',' ').split()
+
+def join_words(word_list):
+    return "\n".join(word_list)
 
 if __name__ == "__main__":
     input_file_path = "in.txt"
@@ -33,7 +39,7 @@ if __name__ == "__main__":
         output_file_path = sys.argv[2]
     categorizer = Categorizer()
     categorizer.read_data(input_file_path)
-    categorizer.preprocess()
+    categorizer.preprocess(split_words)
     categorizer.etyma_matching()
-    categorizer.postprocess()
+    categorizer.postprocess(join_words)
     categorizer.save_data(output_file_path)

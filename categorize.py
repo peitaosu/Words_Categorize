@@ -5,11 +5,9 @@ class Categorizer():
         self.data = None
 
     def preprocess(self, func):
-        # TODO - add preprocess implementation here
         self.data = func(self.data)
 
     def postprocess(self, func):
-        # TODO - add postprocess implementation here
         self.data = func(self.data)
 
     def etyma_matching(self, level=3, language="en"):

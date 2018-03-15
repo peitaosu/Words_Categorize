@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, json
 
 class Categorizer():
     def __init__(self):
@@ -11,8 +11,14 @@ class Categorizer():
         self.data = func(self.data)
 
     def etyma_matching(self, level=3, language="en"):
-        # TODO - add etyma matching implementation here
-        pass
+        words_sets = {}
+        for word in self.data:
+            ends_word = word[ 0 - level:]
+            if ends_word in words_sets.keys():
+                words_sets[ends_word].append(word)
+            else:
+                words_sets[ends_word] = [word]
+        self.data = words_sets
 
     def read_data(self, input_file_path):
         with open(input_file_path, "r") as input_file:
@@ -28,6 +34,9 @@ def split_words(data):
 def join_words(word_list):
     return "\n".join(word_list)
 
+def dict_to_string(word_dict):
+    return json.dumps(word_dict)
+
 if __name__ == "__main__":
     input_file_path = "in.txt"
     output_file_path = "out.txt"
@@ -39,5 +48,5 @@ if __name__ == "__main__":
     categorizer.read_data(input_file_path)
     categorizer.preprocess(split_words)
     categorizer.etyma_matching()
-    categorizer.postprocess(join_words)
+    categorizer.postprocess(dict_to_string)
     categorizer.save_data(output_file_path)

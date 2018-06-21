@@ -1,5 +1,9 @@
 # Words Categorize
 
+
+[![GitHub license](https://img.shields.io/github/license/peitaosu/Words_Categorize.svg)](https://github.com/peitaosu/Words_Categorize/blob/master/LICENSE)
+
+
 This project is implementing a light, simple and flexible words categorizer.
 
 ## Usage
